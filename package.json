@@ -1,0 +1,19 @@
+{
+  "name": "express001",
+  "version": "1.0.0",
+  "description": "Intro project for nodeJS packages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "David Oster",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}

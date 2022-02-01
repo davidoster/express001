@@ -2,14 +2,18 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.use(express.urlencoded({ extended: true }));
+  
 
 // app.get('') == app.get('/') under certain occasions
+// homepage
 app.get('/', (req, res) => {
-    console.log(`req=${req}`);
-    console.log(`res=${res}`);
-    res.send(`Hello World από την Πανεπιστημίου 39!----${req}`)
+    // console.log(`req=${req}`);
+    // console.log(`res=${res}`);
+    res.send(`Hello World από την Πανεπιστημίου 39!`)
 })
 
+// some test /a
 app.get('/a', (req, res) => {
     res.send(`<!DOCTYPE html>
     <html lang="en">
@@ -20,21 +24,28 @@ app.get('/a', (req, res) => {
         <title>Document</title>
     </head>
     <body>
-        <form action="http://localhost:3000/a" method="post">
-            Surname: <input type="text" name = "surname" title="surname" />
-            <button type="submit">Submit</button>
+        <form action="http://localhost:3000/a" method="POST">
+            Username: <input type="text" name = "username" title="username" /><br/> 
+            Password: <input type="password" name = "password" title="password" /><br/>
+            <button type="submit">Login</button>
         </form>
         <script>console.log("Hello")</script>
     </body>
     </html>`)
 })
 
+// some test to accept a value from a form 
 app.post('/a', (req, res) => {
-    console.log(`req=${req}`);
-    console.log(`res=${res}`);
-    res.send(`Hello World από την Πανεπιστημίου 39!----${req}`)
+    let loginResult = checkLoginDetails(req.body.username, req.body.password)
+    if(loginResult) {
+        res.send(`Hello World από την Πανεπιστημίου 39! - ${req.body.username} - ${req.body.password}`);
+    }
+    else {
+        res.send("Get out of here....");
+    }
 })
 
+// /hello
 app.get('/hello', (req, res) => {
   res.send(`<!DOCTYPE html>
   <html lang="en">
@@ -49,6 +60,14 @@ app.get('/hello', (req, res) => {
 `)
 })
 
+// start the web server e.g. express
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${port}`)
 })
+  
+// app.listen(3001, () => {
+//       console.log(`Example app listening on port ${port}`)
+// })
+
+
+console.log(`app listening on port ${port}`)
